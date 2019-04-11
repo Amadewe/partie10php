@@ -3,7 +3,6 @@ include ('../header.php');
 // je stocke dans la variable '$patternName' ma regex pour les noms !
 $patternName = '%^([A-Z]{1}[a-zÀ-ÖØ-öø-ÿ]+)([- ]{1}[A-Z]{1}[a-zÀ-ÖØ-öø-ÿ]+){0,1}$%';
 $patternAge = '%^[0-9]{0,2}$%';
-//FINIR REGEX SOCIETE ---------------------------------------------------------------------------------
 // je créé un tableau qui va contenir mes erreurs.
 $formErrors = array();
 
@@ -53,6 +52,17 @@ if (count($_POST) > 0) {
         }
     } else {
         $formErrors['age'] = 'Veuillez renseigner votre age';
+    }
+    
+        // société
+     if (!empty($_POST['society'])) {
+        if ($_POST['society']) {
+            $society = htmlspecialchars($_POST['society']);
+        } else {
+            $formErrors['society'] = 'Vôtre société est incorrect';
+        }
+    } else {
+        $formErrors['society'] = 'Veuillez renseigner votre société';
     }
 }
 ?>
@@ -115,10 +125,21 @@ if (count($_POST) > 0) {
         <!--age -->
            <div class="form-group">
             <label for="age">age</label>
-            <input type="text" value="<?= isset($_POST['age']) ? $_POST['age'] : '' ?>" name="age" class="form-control" id="age" required />
+            <input type="text" value="<?= isset($_POST['age']) ? $_POST['age'] : '' ?>" name="age" class="form-control" id="age" placeholder="18" required />
             <?php if (isset($formErrors['age'])) { ?>
                 <div class="alert-danger">
                     <p><?= $formErrors['age'] ?></p>
+                </div>
+            <?php } ?>
+        </div>
+        
+           <!--société -->
+           <div class="form-group">
+            <label for="society">société</label>
+            <textarea name="society" class="form-control" id="society" rows="2" placeholder="Nom de votre société" required  /><?= isset($_POST['society']) ? $_POST['society'] : '' ?></textarea>
+            <?php if (isset($formErrors['society'])) { ?>
+                <div class="alert-danger">
+                    <p><?= $formErrors['society'] ?></p>
                 </div>
             <?php } ?>
         </div>
@@ -133,6 +154,10 @@ if (count($_POST) > 0) {
      * On utilise la balises br uniquement dans un p
      * On a ajouté un bouton de retour au formulaire pour simplifier la navigation.
      */
+    
+    /*
+     * En mettant le if içi ça nous permet d'afficher le "resultat" et le formulaire
+     */
     if (count($_POST) > 0 && count($formErrors) == 0) {
         ?>
         <div class="alert-success">
@@ -143,8 +168,8 @@ if (count($_POST) > 0) {
                 Civilité : <?= $title ?><br/>
                 Nom : <?= $lastName ?> <br/>
                 Prénom : <?= $firstName ?><br/>
-                age : <?= $age ?>
-
+                age : <?= $age ?><br/>
+                société : <?= $society ?>
             </p>
             <a href="index.php" title="Retour vers le formulaire" class="btn btn-info">Ajouter un nouvel utilisateur</a>
         </div>

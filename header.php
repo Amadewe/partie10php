@@ -18,6 +18,9 @@
       <li class="nav-item active">
         <a class="nav-link" href="/tp1/index.php">tp 1<span class="sr-only">(current)</span></a>
       </li>
+       <li class="nav-item">
+           <a class="nav-link" href="/tp1correction//index.php">tp 1 correction</a>
+      </li>
       <li class="nav-item">
         <a class="nav-link" href="/tp2/index.php">tp 2</a>
       </li>
